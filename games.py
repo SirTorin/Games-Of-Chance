@@ -36,7 +36,6 @@ def coin_flip(bet, guess):
     else:
         bad_guess = True
 
-
     if try_it2 == True and try_it3 == True and not_int_bet == False and not_int_bet == False:
         if num == 1:
             side = "Heads"
@@ -45,11 +44,11 @@ def coin_flip(bet, guess):
 
         if guess.lower() == side.lower():
             money += int(bet)
-            return "And the flip was..", side.capitalize() + "! You win!", "+$" + str(bet), "   balance is now", "$"+ str(money)
+            return "And the flip was..", side.capitalize() + "! You win", "+$" + str(bet), "   balance is now", "$" + str(money)
 
         elif guess.lower() == "heads" or guess.lower() == "tails":
             money -= int(bet)
-            return "And the flip was..", side.capitalize() + ". You lose.", "-" + str(bet), "   balance is now", "$"+str(money)
+            return "And the flip was..." + side.capitalize() + "! You lose" + " -$" + str(bet) + " balance is now", "$" + str(money)
 
     if bad_guess == True and not_int_bet == True:
         return "Bet is not a number and guess not valid"
@@ -65,9 +64,20 @@ def coin_flip(bet, guess):
 
     elif not_int_bet == False and bet_too_big == True:
         return "You do not have enough money."
-    
+
+
+def cho_han(bet, guess):
+
+    num1 = random.randint(1, 6)
+    num2 = random.randint(1, 6)
+    num = num1 + num2
+
+    not_int_bet = False
+    bet_too_big = False
+    not_int_guess = False
+    guess_too_big = False
+
+
 # Call your game of chance functions here
 
 print(coin_flip(input("Bet "), input("Guess ")))
-
-
