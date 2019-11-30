@@ -275,7 +275,8 @@ def choose():
 
     while money > 0:
         print()
-        game = input("What game do you want to play? input 1:Coin-Flip, 2:Cho-Han, 3:War, 4:Roulette, 5:Withdraw ")  # todo roulette_wins
+        game = input("What game do you want to play? input 1:Coin-Flip, 2:Cho-Han, 3:War, 4:Roulette, 5:Withdraw"
+                     ", 6:Rules ")
         print()
 
 
@@ -290,52 +291,183 @@ def choose():
                 print("Sorry we currently don't have this game published yet. Stay tuned")
             elif int(game) == 5:
                 print("You are withdrawing with " + str(money) + ".")
+
                 time.sleep(1)
-                print()
                 money = -1
+                print()
+
                 if coin_flip_wins >= 1 and coin_flip_losses >= 1:
-                    coin_flip_w_l_ratio = (coin_flip_wins / coin_flip_losses) * 100
+
+                    coin_flip_w_l_ratio = coin_flip_wins / (coin_flip_losses + coin_flip_wins)
+                    coin_flip_w_l_ratio = float(coin_flip_w_l_ratio) * 100
                     coin_flip_w_l_ratio = int(coin_flip_w_l_ratio)
-                    print("Coin-Flip win/loss ratio: " + str(coin_flip_w_l_ratio))
+
+                    print("Coin-Flip win/loss ratio: " + str(coin_flip_w_l_ratio) + "%")
+
+                elif coin_flip_wins >= 1 and coin_flip_losses == 0:
+                    print("Coin-Flip win/loss ratio: 100%")
+
+                elif coin_flip_losses >= 1 and coin_flip_wins == 0:
+                    print("Coin-Flip win/loss ratio: 0%")
 
                 if cho_han_wins >= 1 and cho_han_losses >= 1:
-                    cho_han_w_l_ratio = (cho_han_wins / cho_han_losses) * 100
+
+                    cho_han_w_l_ratio = cho_han_wins / (cho_han_losses + cho_han_wins)
+                    cho_han_w_l_ratio = float(cho_han_w_l_ratio) * 100
                     cho_han_w_l_ratio = int(cho_han_w_l_ratio)
-                    print("Cho Han win/loss ratio: " + str(cho_han_w_l_ratio))
+
+                    print("Cho-Han win/loss ratio: " + str(cho_han_w_l_ratio) + "%")
+
+                elif cho_han_wins >= 1 and cho_han_losses == 0:
+                    print("Cho-Han win/loss ratio: 100%")
+
+                elif cho_han_losses >= 1 and cho_han_wins == 0:
+                    print("Cho-Han win/loss ratio: 0%")
 
                 if war_wins >= 1 and war_losses >= 1:
-                    war_w_l_ratio = (war_wins / war_losses) * 100
+
+                    war_w_l_ratio = war_wins / (war_losses + war_wins)
+                    war_w_l_ratio = float(war_w_l_ratio) * 100
                     war_w_l_ratio = int(war_w_l_ratio)
-                    print("War win/loss ratio: " + str(war_w_l_ratio))
+
+                    print("War win/loss ratio: " + str(war_w_l_ratio) + "%")
+
+                elif war_wins >= 1 and war_losses == 0:
+                    print("War win/loss ratio: 100%")
+
+                elif war_losses >= 1 and war_wins == 0:
+                    print("War win/loss ratio: 0%")
+
                 if war_ties >= 1:
-                    print("Amount of War ties: " + war_ties)
+                    print("Amount of War ties: " + str(war_ties))
 
+            elif int(game) == 6:
+                rule = input("1:Coin-Flip, 2:Cho-Han, 3:War, 4:Roulette, 5:Back ")
 
+                if int(rule) == 1:
+                    print("""During a coin toss, the coin is thrown into the air such that it rotates edge-over-edge
+                     several times. Either beforehand or when the coin is in the air, an interested party calls "heads"
+                      or "tails", indicating which side of the coin that party is choosing. The other party is assigned
+                       the opposite side. Depending on custom, the coin may be caught; caught and inverted; or allowed
+                        to land on the ground. When the coin comes to rest, the toss is complete and the party who
+                         called correctly or was assigned the upper side is declared the winner.""")
+                elif int(rule) == 2:
+                    print()
+                    print("""Chō-Han Bakuchi or simply Chō-Han (丁半) is a traditional Japanese gambling game using dice.
+The game uses two standard six-sided dice, which are shaken in a bamboo cup or bowl by a dealer. The cup is then
+ overturned onto the floor. Players then place their wagers on whether the sum total of numbers showing on the two dice
+  will be "Chō" (even) or "Han" (odd). The dealer then removes the cup, displaying the dice. The winners collect their
+   money.""")
+                elif int(rule) == 3:
+                    print("""Cards are ranked as in poker, except aces are always high. The suit does not matter.
+After the players have made a wager each player and the dealer shall get one card. Each player's card shall be compared
+ with the dealer's card. If the player's card is higher he wins even money. If the dealer's card is higher the player
+  loses.""")
+                elif int(rule) == 4:
+                    print("""Roulette is a casino game named after the French word meaning little wheel. In the game, 
+players may choose to place bets on either a single number, various groupings of numbers, the colors red or
+black, whether the number is odd or even, or if the numbers are high (19–36) or low (1–18).
+To determine the winning number and color, a croupier spins a wheel in one direction, then spins a ball in the opposite
+direction around a tilted circular track running around the outer edge of the wheel. The ball eventually loses
+momentum, passes through an area of deflectors, and falls onto the wheel and into one of or 38 colored and numbered
+pockets on the wheel. The winnings are then paid to anyone who has placed a successful bet.
+
+A. ‘Straight Up’
+(one specific number)
+35 to 1
+B. ‘Split’
+(one of two specific numbers)
+17 to 1
+C. ‘Street’
+(one of three specific numbers)
+ 11 to 1
+D. ‘Corner’
+(one of four specific numbers)
+ 8 to 1
+E. ‘First Four’
+(one of numbers 0,1,2,3)
+8 to 1
+F. ‘Six Line’
+(one of six specific numbers)
+5 to 1
+G. ‘Column’
+(one of twelve specific numbers in a row)
+2 to 1
+H. ‘Dozen’
+(one of twelve specific numbers in a block)
+2 to 1
+J. ‘Red or Black’
+(one of eighteen specific numbers)
+1 to 1
+K. ‘Odd or Even’
+(one of eighteen specific numbers)
+1 to 1
+L. ‘Low or High’
+(one of eighteen specific numbers)
+1 to 1
+M. ‘Split Columns’
+(one of 24 specific numbers in a row)
+1 to 2
+N. ‘Split Dozens’
+(one of 24 specific numbers in a block)
+1 to 2 """)
+                elif int(rule) == 5:
+                    choose()
 
 
         except:
-            print("Wrong input")
             if money > 0:
+                print("Wrong input")
                 choose()
     if money == 0:
         print("You are out of money.")
         time.sleep(1)
+        print()
+
         if coin_flip_wins >= 1 and coin_flip_losses >= 1:
-            coin_flip_w_l_ratio = (coin_flip_wins / coin_flip_losses) * 100
+
+            coin_flip_w_l_ratio = coin_flip_wins / (coin_flip_losses + coin_flip_wins)
+            coin_flip_w_l_ratio = float(coin_flip_w_l_ratio) * 100
             coin_flip_w_l_ratio = int(coin_flip_w_l_ratio)
-            print("Coin-Flip win/loss ratio: " + str(coin_flip_w_l_ratio))
+
+            print("Coin-Flip win/loss ratio: " + str(coin_flip_w_l_ratio) + "%")
+
+        elif coin_flip_wins >= 1 and coin_flip_losses == 0:
+            print("Coin-Flip win/loss ratio: 100%")
+
+        elif coin_flip_losses >= 1 and coin_flip_wins == 0:
+            print("Coin-Flip win/loss ratio: 0%")
 
         if cho_han_wins >= 1 and cho_han_losses >= 1:
-            cho_han_w_l_ratio = (cho_han_wins / cho_han_losses) * 100
+
+            cho_han_w_l_ratio = cho_han_wins / (cho_han_losses + cho_han_wins)
+            cho_han_w_l_ratio = float(cho_han_w_l_ratio) * 100
             cho_han_w_l_ratio = int(cho_han_w_l_ratio)
-            print("Cho Han win/loss ratio: " + str(cho_han_w_l_ratio))
+
+            print("Cho-Han win/loss ratio: " + str(cho_han_w_l_ratio) + "%")
+
+        elif cho_han_wins >= 1 and cho_han_losses == 0:
+            print("Cho-Han win/loss ratio: 100%")
+
+        elif cho_han_losses >= 1 and cho_han_wins == 0:
+            print("Cho-Han win/loss ratio: 0%")
 
         if war_wins >= 1 and war_losses >= 1:
-            war_w_l_ratio = (war_wins / war_losses) * 100
+
+            war_w_l_ratio = war_wins / (war_losses + war_wins)
+            war_w_l_ratio = float(war_w_l_ratio) * 100
             war_w_l_ratio = int(war_w_l_ratio)
-            print("War win/loss ratio: " + str(war_w_l_ratio))
+
+            print("War win/loss ratio: " + str(war_w_l_ratio) + "%")
+
+        elif war_wins >= 1 and war_losses == 0:
+            print("War win/loss ratio: 100%")
+
+        elif war_losses >= 1 and war_wins == 0:
+            print("War win/loss ratio: 0%")
+
         if war_ties >= 1:
-            print("Amount of War ties: " + war_ties)
+            print("Amount of War ties: " + str(war_ties))
 choose()
 
 
