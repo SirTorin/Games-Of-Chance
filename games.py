@@ -5,13 +5,21 @@ money = 100
 
 coin_flip_wins = 0
 coin_flip_losses = 0
+coin_flip_profit = 0
 
 cho_han_wins = 0
 cho_han_losses = 0
+cho_han_profit = 0
 
 war_wins = 0
 war_losses = 0
 war_ties = 0
+war_profit = 0
+
+roulette_wins = 0
+roulette_losses = 0
+roulette_profit = 0
+
 
 # Write your game of chance functions here
 def coin_flip(bet, guess):
@@ -21,6 +29,7 @@ def coin_flip(bet, guess):
     global money
     global coin_flip_wins
     global coin_flip_losses
+    global coin_flip_profit
 
     bet_not_int = False
     bet_over = False
@@ -57,12 +66,14 @@ def coin_flip(bet, guess):
 
         if guess.lower() == side.lower() or guess.lower() == short_side.lower():
             money += int(bet)
+            coin_flip_profit += int(bet)
             coin_flip_wins += 1
             return "And the flip was..." + side.capitalize() + "! You win" + " +$" + str(
                 bet) + ". balance is now " + "$" + str(money)
 
         else:
             money -= int(bet)
+            coin_flip_profit -= int(bet)
             coin_flip_losses += 1
             return "And the flip was..." + side.capitalize() + "! You lose" + " -$" + str(
                 bet) + ". balance is now " + "$" + str(money)
@@ -96,6 +107,7 @@ def cho_han(bet, guess):
     global money
     global cho_han_wins
     global cho_han_losses
+    global cho_han_profit
 
     num1 = random.randint(1, 6)
     num2 = random.randint(1, 6)
@@ -139,11 +151,13 @@ def cho_han(bet, guess):
     if bet_not_int == False and bet_under == False and bet_over == False and guess_not_int == False and guess_under == False and guess_over == False:
         if (num % 2) == (guess % 2):
             money += int(bet)
+            cho_han_profit += int(bet)
             cho_han_wins += 1
             return "And the roll was..." + even_or_odd + "! (" + str(num1) + " + " + str(num2) + " total: " + str(
                 num) + ") You win" + " +$" + str(bet) + ". balance is now " + "$" + str(money)
         else:
             money -= int(bet)
+            cho_han_profit -= int(bet)
             cho_han_losses += 1
             return "And the roll was..." + even_or_odd + "! (" + str(num1) + " + " + str(num2) + " total: " + str(
                 num) + ") You lose" + " -$" + str(bet) + ". balance is now " + "$" + str(money)
@@ -205,6 +219,7 @@ def war(bet):
     global war_wins
     global war_losses
     global war_ties
+    global war_profit
 
     try:
         bet = int(bet)
@@ -248,14 +263,16 @@ def war(bet):
         return "You pulled: " + p1_card + " He pulled: " + p2_card + " Its a tie! +$0. money still now " + str(money)
 
     elif p1_c_value > p2_c_value:
-        money += bet
+        money += int(bet)
+        war_profit += int(bet)
         war_wins += 1
         return "You pulled: " + p1_card + ". He pulled: " + p2_card + ". You win +$" + str(
             bet) + ". money is now " + str(money)
 
 
     else:
-        money -= bet
+        money -= int(bet)
+        war_profit -= int(bet)
         war_wins += 1
         return "You pulled: " + p1_card + ". He pulled: " + p2_card + ". You lose -$" + str(
             bet) + ". money is now " + str(money)
@@ -263,8 +280,86 @@ def war(bet):
 
 
 
-def roulette():
-    print()
+def roulette(bet, letter):
+
+    global money
+    global roulette_wins
+    global roulette_losses
+    global roulette_profit
+
+    bet_not_int = False
+    bet_over = False
+    bet_under = False
+    bad_letter = False
+
+    try:
+        bet = int(bet)
+    except ValueError:
+        bet_not_int = True
+
+    number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+              30, 31, 32, 33, 34, 35, 36, 0, 0.0]
+
+    color = ['red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'black', 'red', 'black',
+             'red',
+             'black', 'red', 'black', "red", "red", 'black', 'red', 'black', 'red', "black", "red", "black", "red",
+             "black",
+             "black", "red", "black", "red", "black", "red", "black", "red", "0", "00"]
+
+    odd_even = ["odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even",
+                "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even",
+                "odd", "even", "odd", "even", "odd", "even", "odd", "even", "0", "00"]
+    num = random.randint(1, 38)
+    chosen_number = number[num]
+    chosen_color = color[num]
+    nc = list(zip(chosen_color, chosen_number))
+
+    if bet_not_int == False:
+        if money < bet:
+            bet_over = True
+
+        elif bet < 1:
+            bet_under = True
+
+    guess = []
+
+    if letter.lower() == "a":
+        guess.append(input("Choose a single number"))
+    elif letter.lower() == "b":
+        print()
+    elif letter.lower() == "c":
+        print()
+    elif letter.lower() == "d":
+        print()
+    elif letter.lower() == "e":
+        print()
+    elif letter.lower() == "f":
+        print()
+    elif letter.lower() == "g":
+        print()
+    elif letter.lower() == "h":
+        print()
+    elif letter.lower() == "j":
+        print()
+    elif letter.lower() == "k":
+        print()
+    elif letter.lower() == "l":
+        print()
+    elif letter.lower() == "m":
+        print()
+    elif letter.lower() == "n":
+        print()
+    else:
+        bad_letter = True
+
+    if guess == num:
+        money -= int(bet)
+        roulette_profit -= int(bet)
+        roulette_wins += 1
+
+    else:
+        print()
+
 
 
 
@@ -275,20 +370,35 @@ def choose():
 
     while money > 0:
         print()
-        game = input("What game do you want to play? input 1:Coin-Flip, 2:Cho-Han, 3:War, 4:Roulette, 5:Withdraw"
-                     ", 6:Rules ")
+        game = input("What game do you want to play? input 1:Coin-Flip, 2:Cho-Han, 3:War, 4:Roulette, 5:Withdraw, 6:Rules ")
         print()
 
 
         try:
             if int(game) == 1:
-                print(coin_flip(input("Coin-Flip      Bet "), input("Coin-Flip    Guess ")))
+                print(coin_flip(input("Coin-Flip      Bet "), input("Coin-Flip      guess ")))
             elif int(game) == 2:
                 print(cho_han(input("Cho-Han      Bet "), input("Cho-Han    Guess ")))
             elif int(game) == 3:
                 print(war(input("War      Bet ")))
             elif int(game) == 4:
-                print("Sorry we currently don't have this game published yet. Stay tuned")
+                print("""A. ‘Straight Up’(one specific number) B. ‘Split’(one of two specific numbers)
+C. ‘Street’(one of three specific numbers) D. ‘Corner’(one of four specific numbers)
+E. ‘First Four’(one of numbers 0,1,2,3) F.‘Six Line’(one of six specific numbers)
+G. ‘Column’ (one of twelve specific numbers in a row) H. ‘Dozen’ (one of twelve specific numbers in a block)
+J. ‘Red or Black’ (one of eighteen specific numbers) K. ‘Odd or Even’ (one of eighteen specific numbers)
+L. ‘Low or High’ (one of eighteen specific numbers) M. ‘Split Columns’(one of 24 specific numbers in a row)
+N. ‘Split Dozens’(one of 24 specific numbers in a block)
+ _____________________________________________________________
+| 0 |r3 |b6 |r9 |r12||b15|r18|r21|b24||r27|r30|b33|r36| row1  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|---|b2 |r5 |b8 |b11||r14|b17|b20|r23||b26|b29|r32|b35| row2  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|   |r1 |b4 |r7 |b10||b13|r16|r19|b22||r25|b28|b31|r34| row3  |
+ ---|---------------||---------------||---------------|-------
+    |    1st 12     ||    2nd 12     ||    3rd 12     |
+     -------------------------------------------------""")
+                print(roulette(input("Type bet amount. "), input("Type letter of the type of bet you'd like to make. ")))
             elif int(game) == 5:
                 print("You are withdrawing with " + str(money) + ".")
 
@@ -310,6 +420,10 @@ def choose():
                 elif coin_flip_losses >= 1 and coin_flip_wins == 0:
                     print("Coin-Flip win/loss ratio: 0%")
 
+                if coin_flip_wins >= 1 and coin_flip_losses >= 1:
+                    print("Coin-flip net gain: " + str(coin_flip_profit))
+                    print()
+
                 if cho_han_wins >= 1 and cho_han_losses >= 1:
 
                     cho_han_w_l_ratio = cho_han_wins / (cho_han_losses + cho_han_wins)
@@ -323,6 +437,10 @@ def choose():
 
                 elif cho_han_losses >= 1 and cho_han_wins == 0:
                     print("Cho-Han win/loss ratio: 0%")
+
+                if cho_han_wins >= 1 and cho_han_losses >= 1:
+                    print("Cho-Han net gain: " + str(cho_han_profit))
+                    print()
 
                 if war_wins >= 1 and war_losses >= 1:
 
@@ -340,6 +458,28 @@ def choose():
 
                 if war_ties >= 1:
                     print("Amount of War ties: " + str(war_ties))
+
+                if war_wins >= 1 and war_losses >= 1:
+                    print("War net gain: " + str(war_profit))
+                    print()
+
+                if roulette_wins >= 1 and roulette_losses >= 1:
+
+                    roulette_w_l_ratio = roulette_wins / (roulette_losses + roulette_wins)
+                    roulette_w_l_ratio = float(roulette_w_l_ratio) * 100
+                    roulette_w_l_ratio = int(roulette_w_l_ratio)
+
+                    print("roulette win/loss ratio: " + str(roulette_w_l_ratio) + "%")
+
+                elif roulette_wins >= 1 and roulette_losses == 0:
+                    print("roulette win/loss ratio: 100%")
+
+                elif roulette_losses >= 1 and roulette_wins == 0:
+                    print("roulette win/loss ratio: 0%")
+
+                if roulette_wins >= 1 and roulette_losses >= 1:
+                    print("roulette net gain: " + str(roulette_profit))
+                    print()
 
             elif int(game) == 6:
                 rule = input("1:Coin-Flip, 2:Cho-Han, 3:War, 4:Roulette, 5:Back ")
@@ -372,45 +512,28 @@ direction around a tilted circular track running around the outer edge of the wh
 momentum, passes through an area of deflectors, and falls onto the wheel and into one of or 38 colored and numbered
 pockets on the wheel. The winnings are then paid to anyone who has placed a successful bet.
 
-A. ‘Straight Up’
-(one specific number)
-35 to 1
-B. ‘Split’
-(one of two specific numbers)
-17 to 1
-C. ‘Street’
-(one of three specific numbers)
- 11 to 1
-D. ‘Corner’
-(one of four specific numbers)
- 8 to 1
-E. ‘First Four’
-(one of numbers 0,1,2,3)
-8 to 1
-F. ‘Six Line’
-(one of six specific numbers)
-5 to 1
-G. ‘Column’
-(one of twelve specific numbers in a row)
-2 to 1
-H. ‘Dozen’
-(one of twelve specific numbers in a block)
-2 to 1
-J. ‘Red or Black’
-(one of eighteen specific numbers)
-1 to 1
-K. ‘Odd or Even’
-(one of eighteen specific numbers)
-1 to 1
-L. ‘Low or High’
-(one of eighteen specific numbers)
-1 to 1
-M. ‘Split Columns’
-(one of 24 specific numbers in a row)
-1 to 2
-N. ‘Split Dozens’
-(one of 24 specific numbers in a block)
-1 to 2 """)
+A. ‘Straight Up’ (one specific number) 35 to 1 
+B. ‘Split’ (one of two specific numbers) 17 to 1
+C. ‘Street’(one of three specific numbers) 11 to 1
+D. ‘Corner’ (one of four specific numbers) 8 to 1 
+E. ‘First Four’ (one of numbers 0,1,2,3) 8 to 1 
+F. ‘Six Line’(one of six specific numbers) 5 to 1
+G. ‘Column’ (one of twelve specific numbers in a row) 2 to 1 
+H. ‘Dozen’(one of twelve specific numbers in a block) 2 to 1
+J. ‘Red or Black’ (one of eighteen specific numbers) 1 to 1
+K. ‘Odd or Even’ (one of eighteen specific numbers) 1 to 1
+L. ‘Low or High’ (one of eighteen specific numbers) 1 to 1
+M. ‘Split Columns’ (one of 24 specific numbers in a row) 1 to 2
+N. ‘Split Dozens’ (one of 24 specific numbers in a block) 1 to 2 
+ _____________________________________________________________
+| 0 |r3 |b6 |r9 |r12||b15|r18|r21|b24||r27|r30|b33|r36| row1  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|---|b2 |r5 |b8 |b11||r14|b17|b20|r23||b26|b29|r32|b35| row2  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|   |r1 |b4 |r7 |b10||b13|r16|r19|b22||r25|b28|b31|r34| row3  |
+ ---|---------------||---------------||---------------|-------
+    |    1st 12     ||    2nd 12     ||    3rd 12     |
+     -------------------------------------------------""")
                 elif int(rule) == 5:
                     choose()
 
@@ -438,6 +561,11 @@ N. ‘Split Dozens’
         elif coin_flip_losses >= 1 and coin_flip_wins == 0:
             print("Coin-Flip win/loss ratio: 0%")
 
+        if coin_flip_wins >= 1 or coin_flip_losses >= 1:
+            print("Coin-flip net gain: " + str(coin_flip_profit))
+            print()
+
+
         if cho_han_wins >= 1 and cho_han_losses >= 1:
 
             cho_han_w_l_ratio = cho_han_wins / (cho_han_losses + cho_han_wins)
@@ -451,6 +579,11 @@ N. ‘Split Dozens’
 
         elif cho_han_losses >= 1 and cho_han_wins == 0:
             print("Cho-Han win/loss ratio: 0%")
+
+        if cho_han_wins >= 1 or cho_han_losses >= 1:
+            print("Cho-Han net gain: " + str(cho_han_profit))
+            print()
+
 
         if war_wins >= 1 and war_losses >= 1:
 
@@ -468,6 +601,29 @@ N. ‘Split Dozens’
 
         if war_ties >= 1:
             print("Amount of War ties: " + str(war_ties))
+
+        if war_wins >= 1 or war_losses >= 1:
+            print("War net gain: " + str(war_profit))
+            print()
+
+
+        if roulette_wins >= 1 and roulette_losses >= 1:
+
+            roulette_w_l_ratio = roulette_wins / (roulette_losses + roulette_wins)
+            roulette_w_l_ratio = float(roulette_w_l_ratio) * 100
+            roulette_w_l_ratio = int(roulette_w_l_ratio)
+
+            print("roulette win/loss ratio: " + str(roulette_w_l_ratio) + "%")
+
+        elif roulette_wins >= 1 and roulette_losses == 0:
+            print("roulette win/loss ratio: 100%")
+
+        elif roulette_losses >= 1 and roulette_wins == 0:
+            print("roulette win/loss ratio: 0%")
+
+        if roulette_wins >= 1 or roulette_losses >= 1:
+            print("roulette net gain: " + str(roulette_profit))
+            print()
 choose()
 
 
