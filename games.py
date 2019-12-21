@@ -280,88 +280,444 @@ def war(bet):
 
 
 
-def roulette(bet, letter):
+def roulette():
 
     global money
     global roulette_wins
     global roulette_losses
     global roulette_profit
+    
 
-    bet_not_int = False
-    bet_over = False
-    bet_under = False
-    bad_letter = False
+    number = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+     "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "0", "00"]
 
-    try:
-        bet = int(bet)
-    except ValueError:
-        bet_not_int = True
-
-    number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-              30, 31, 32, 33, 34, 35, 36, 0, 0.0]
-
-    color = ['red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'black', 'red', 'black',
-             'red',
-             'black', 'red', 'black', "red", "red", 'black', 'red', 'black', 'red', "black", "red", "black", "red",
-             "black",
-             "black", "red", "black", "red", "black", "red", "black", "red", "0", "00"]
+    color = ['red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'black', 'red', 'black','red'
+     ,"black" ,"red", "black", "red", "red", "black", "red", "black", "red", "black", "red", "black", "red", 'black', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', '0', '00']
 
     odd_even = ["odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even",
                 "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even", "odd", "even",
                 "odd", "even", "odd", "even", "odd", "even", "odd", "even", "0", "00"]
-    num = random.randint(1, 38)
-    chosen_number = number[num]
-    chosen_color = color[num]
-    nc = list(zip(chosen_color, chosen_number))
+    
+    row = ["row1", "row2", "row3", "row1", "row2", "row3", "row1", "row2", "row3", "row1", "row2", "row3", "row1", "row2",
+     "row3", "row1", "row2", "row3", "row1", "row2", "row3", "row1", "row2", "row3", "row1", "row2", "row3", "row1", "row2", "row3",
+      "row1", "row2", "row3", "row1", "row2", "row3", "0", "00"]
+    
+    _12 = ["1st twelve", "1st twelve", "1st twelve", "1st twelve", "1st twelve", "1st twelve", "1st twelve",
+     "1st twelve", "1st twelve", "1st twelve", "1st twelve", "1st twelve", "2nd twelve", "2nd twelve", "2nd twelve", "2nd twelve",
+     "2nd twelve", "2nd twelve", "2nd twelve", "2nd twelve", "2nd twelve", "2nd twelve", "2nd twelve", "2nd twelve", "3rd twelve",
+      "3rd twelve", "3rd twelve", "3rd twelve", "3rd twelve", "3rd twelve", "3rd twelve", "3rd twelve", "3rd twelve","3rd twelve", "3rd twelve", "3rd twelve", "0", "00"]
 
-    if bet_not_int == False:
-        if money < bet:
-            bet_over = True
+    _18 = ["first_18", "first_18", "first_18", "first_18", "first_18", "first_18", "first_18", "first_18", "first_18", "first_18", "first_18", "first_18", "first_18",
+     "first_18", "first_18", "first_18", "first_18", "first_18","second_18", "second_18", "second_18", "second_18", "second_18", "second_18", "second_18", "second_18",
+      "second_18", "second_18", "second_18", "second_18", "second_18", "second_18", "second_18", "second_18", "second_18", "second_18", "0", "00"]
 
-        elif bet < 1:
-            bet_under = True
+    split_two = ["00/0", "0/1", "0/2", "00/2", "00/3", "1/4", "2/5", "3/6", "4/7", "5/8", "6/9", "7/10", "8/11", "9/12", "10/13", "11/14", "12/15", "13/16", "14/17", "15/18",
+    "16/19", "17/20", "18/21", "19/22", "20/23", "21/24", "22/25", "23/26", "24/27", "25/28", "26/29", "27/30", "28/31", "29/32", "30/33", "31/34", "32/35", "33/36", "36/35",
+    "35/34", "33/32", "32/31", "30/29", "29/28", "27/26", "26/25", "24/23", "23/22", "21/20", "20/19", "18/17", "17/16", "15/14", "14/13", "12/11", "11/10", "9/8", "8/7",
+    "6/5", "5/4", "3/2", "2/1"]
+    # 36: Single Number (Straight) 18: Two Numbers (Split) 12: Three Numbers (Street, Trio) 9: Four Numbers (Corner) 7: Five Numbers (Basket in US Roulette)
+    #6: Six Numbers (Six Line)	3: Dozens/Columns 2: 18 Numbers 2: ‘Even’ Odds 
 
-    guess = []
+    guess_l = []
+    bet_l = []
+    times = []
+    type_ = []
 
-    if letter.lower() == "a":
-        guess.append(input("Choose a single number"))
-    elif letter.lower() == "b":
-        print()
-    elif letter.lower() == "c":
-        print()
-    elif letter.lower() == "d":
-        print()
-    elif letter.lower() == "e":
-        print()
-    elif letter.lower() == "f":
-        print()
-    elif letter.lower() == "g":
-        print()
-    elif letter.lower() == "h":
-        print()
-    elif letter.lower() == "j":
-        print()
-    elif letter.lower() == "k":
-        print()
-    elif letter.lower() == "l":
-        print()
-    elif letter.lower() == "m":
-        print()
-    elif letter.lower() == "n":
-        print()
+    while True:
+
+        print("""A. ‘Straight Up’(one specific number) B. ‘Split’(one of two specific numbers)
+C. ‘Street’(one of three specific numbers) D. ‘Corner’(one of four specific numbers)
+E. ‘First Four’(one of numbers 0,1,2,3) F.‘Six Line’(one of six specific numbers)
+G. ‘Column’ (one of twelve specific numbers in a row) H. ‘Dozen’ (one of twelve specific numbers in a block)
+J. ‘Red or Black’ (one of eighteen specific numbers) K. ‘Odd or Even’ (one of eighteen specific numbers)
+L. ‘Low or High’ (one of eighteen specific numbers) M. ‘Split Columns’(one of 24 specific numbers in a row)
+N. ‘Split Dozens’(one of 24 specific numbers in a block)
+ _____________________________________________________________
+| 0 |r3 |b6 |r9 |r12||b15|r18|r21|b24||r27|r30|b33|r36| row1  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|---|b2 |r5 |b8 |b11||r14|b17|b20|r23||b26|b29|r32|b35| row2  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|   |r1 |b4 |r7 |b10||b13|r16|r19|b22||r25|b28|b31|r34| row3  |
+ ---|---------------||---------------||---------------|-------
+    |    1st  12    ||    2nd  12    ||    3rd  12    |
+     -------------------------------------------------""")
+        bet_not_int = False
+
+        letter = input('Balance = ${}\n"place" to place bets\n"current" to see current bets\nType of bet '.format(money))
+        
+        if letter.lower() == "place":
+            break
+
+        elif letter.lower() == "current":
+            if True:
+                skip = False
+                for i in range(len(guess_l)):
+                    if type_[i] == "split":
+                        try:
+                           if skip == False:
+                               skip = True
+                           else:
+                               skip = False
+                               continue
+                        except:
+                            pika = True
+
+                        if guess_l[i] == "0" or guess_l[i] == "00":
+                            if guess_l[i+1] == "0" or guess_l[i+1] == "00":
+                                print("\n{}: ${} split on {} and {}".format(i+1, bet_l[i], guess_l[i], guess_l[i+1]))
+                                time.sleep(.5)
+                            else:
+                                print("\n{}: ${} split on {} and {} {}".format(i+1, bet_l[i], guess_l[i], color[int(guess_l[i+1])], guess_l[i+1]))
+                                time.sleep(.5)
+
+                        else:
+                            if guess_l[i+1] == "0" or guess_l[i+1] == "00":
+                                print("\n{}: ${} split on {} {} and {}".format(i+1, bet_l[i], color[int(guess_l[i])], guess_l[i], guess_l[i+1]))
+                                time.sleep(.5)
+                            else:
+                                print("\n{}: ${} split on {} {} and {} {}".format(i+1, bet_l[i], color[int(guess_l[i])], guess_l[i], color[int(guess_l[i+1])], guess_l[i+1]))
+                                time.sleep(.5)
+
+                    else:    
+                        if guess_l[i] == "0" or guess_l[i] == "00":
+                            print("\n{}: ${} on {}".format(i+1, bet_l[i], guess_l[i]))
+                            time.sleep(.5)
+
+                        elif guess_l[i] in number:
+                            print("\n{}: ${} on {} {}".format(i+1, bet_l[i], color[int(guess_l[i])], guess_l[i]))
+                            time.sleep(.5)
+                        else:
+                            print("\n{}: ${} on {}".format(i+1, bet_l[i], guess_l[i]))
+                            time.sleep(.5)
+                if len(guess_l) > 0:
+                    okay = input("back: ")
+                    continue
+                else:
+                    print("\nMust have bets placed to see current bets")
+                    time.sleep(2)
+            
+        elif letter.lower() == "a":
+            print(""" _____________________________________________________________
+| 0 |r3 |b6 |r9 |r12||b15|r18|r21|b24||r27|r30|b33|r36| row1  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|---|b2 |r5 |b8 |b11||r14|b17|b20|r23||b26|b29|r32|b35| row2  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|   |r1 |b4 |r7 |b10||b13|r16|r19|b22||r25|b28|b31|r34| row3  |
+ ---|---------------||---------------||---------------|-------
+    |    1st  12    ||    2nd  12    ||    3rd  12    |
+     -------------------------------------------------\nBalance = ${}""".format(money))
+            guess = (input("\n‘Straight Up’(one specific number): ").lower())
+
+            if guess in number:
+                
+                bet = (input("\nBet amount (min $1): $"))
+
+                try:
+                  bet = int(bet)
+                except ValueError:
+                    bet_not_int = True
+                    print("\nThe bet is not a number")
+                    time.sleep(3)
+                    continue
+
+                if bet_not_int == False:
+                    if money < bet:
+                        print("\nYou do not have enough money. Bet was {}, Balance is {}".format(bet, money))
+                        time.sleep(3)
+                        continue
+
+                    elif bet < 1:
+                        print("\Minimum $2")
+                        time.sleep(3)
+                        continue
+                
+                guess_l.append(guess)
+                bet_l.append(bet)
+                times.append(18)
+                type_.append("single")
+
+                money -= bet
+                roulette_profit -= bet
+
+            else:
+                print("Guess is not a possible answer. 1-36, 0 and 00")
+                time.sleep(2)
+
+        elif letter.lower() == "b":
+            print(""" _____________________________________________________________
+| 0 |r3 |b6 |r9 |r12||b15|r18|r21|b24||r27|r30|b33|r36| row1  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|---|b2 |r5 |b8 |b11||r14|b17|b20|r23||b26|b29|r32|b35| row2  |
+| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
+|   |r1 |b4 |r7 |b10||b13|r16|r19|b22||r25|b28|b31|r34| row3  |
+ ---|---------------||---------------||---------------|-------
+    |    1st  12    ||    2nd  12    ||    3rd  12    |
+     -------------------------------------------------\nBalance = ${}""".format(money))
+
+            guess = (input("\n‘Two Numbers' (Split)\n_________\n|r3 |b6 |\n --- ---\nformat like  3/6: ").lower())
+            if True:
+                if guess in split_two:
+
+                    bet = (input("\nBet amount (min $2): $"))
+
+
+                    try:
+                        bet = int(bet)
+                    except ValueError:
+                        bet_not_int = True
+                        print("\nThe bet is not a number")
+                        time.sleep(3)
+                        continue
+
+                    if bet_not_int == False:
+                        if money < bet:
+                            print("\nYou do not have enough money. Bet was {}, Balance is {}".format(bet, money))
+                            time.sleep(3)
+                            continue
+
+                        elif bet < 1:
+                            print("\Minimum $1")
+                            time.sleep(3)
+                            continue
+                    
+                    split_two_s = guess.split("/")
+                    
+                    for s in split_two_s:
+                        guess_l.append(s)
+                        times.append(18)
+                        bet_l.append(bet)
+                        type_.append("split")
+                    
+                    print(split_two_s, guess_l, s, bet_l)
+
+                    money -= bet
+                    roulette_profit -= bet
+
+                else:
+                    print("Guess is not a possible answer. 1-36, 0 and 00")
+                    time.sleep(2)
+        elif letter.lower() == "c":
+            print()
+        elif letter.lower() == "d":
+            print()
+        elif letter.lower() == "e":
+            print()
+        elif letter.lower() == "f":
+            print()
+        elif letter.lower() == "g":
+            print()
+        elif letter.lower() == "h":
+            print()
+        elif letter.lower() == "j":
+            guess = (input("\nred or black: ").lower())
+
+            if guess in color:
+                
+                bet = (input("\nBet amount (min $1): $"))
+
+                try:
+                  bet = int(bet)
+                except ValueError:
+                    bet_not_int = True
+                    print("\nThe bet is not a number")
+                    time.sleep(3)
+                    continue
+
+                if bet_not_int == False:
+                    if money < bet:
+                        print("\nYou do not have enough money. Bet was {}, Balance is {}".format(bet, money))
+                        time.sleep(3)
+                        continue
+
+                    elif bet < 1:
+                        print("\Minimum $1")
+                        time.sleep(3)
+                        continue
+                
+                guess_l.append(guess)
+                bet_l.append(bet)
+                times.append(2)
+
+                money -= bet
+                roulette_profit -= bet
+
+            else:
+                print("Guess is not a possible answer. red or black")
+                time.sleep(2)
+        elif letter.lower() == "k":
+            guess = (input("\nodd or even: ").lower())
+
+            if guess in odd_even:
+                
+                bet = (input("\nBet amount (min $1): $"))
+
+                try:
+                  bet = int(bet)
+                except ValueError:
+                    bet_not_int = True
+                    print("\nThe bet is not a number")
+                    time.sleep(3)
+                    continue
+
+                if bet_not_int == False:
+                    if money < bet:
+                        print("\nYou do not have enough money. Bet was {}, Balance is {}".format(bet, money))
+                        time.sleep(3)
+                        continue
+
+                    elif bet < 1:
+                        print("\Minimum $1")
+                        time.sleep(3)
+                        continue
+                
+                guess_l.append(guess)
+                bet_l.append(bet)
+                times.append(2)
+
+                money -= bet
+                roulette_profit -= bet
+
+            else:
+                print("Guess is not a possible answer. odd or even")
+                time.sleep(2)
+        elif letter.lower() == "l":
+            print()
+        elif letter.lower() == "m":
+            print()
+        elif letter.lower() == "n":
+            print()
+        else:
+            print("Not a possible answer")
+            time.sleep(1.5)
+
+
+    num = random.randint(0, 38)
+    chosen_one = []
+    
+    chosen_one.append(number[num])
+    chosen_one.append(color[num])
+    chosen_one.append(odd_even[num])
+    chosen_one.append(row[num])
+    chosen_one.append(_12[num])
+    chosen_one.append(_18[num])
+
+    money_profit = 0
+    
+
+    print("\nRolling")
+    time.sleep(.5)
+    print("Rolling.")
+    time.sleep(.6)
+    print("Rolling..")
+    time.sleep(.7)
+    print("Rolling...")
+    time.sleep(.8)
+    print("It landed on {} {}.".format(color[num], number[num]))
+    time.sleep(2)
+    skip = False
+    for i in range(len(guess_l)):
+        if type_[i] == "split":
+            if skip == False:
+                skip = True
+            else:
+                skip = False
+                continue
+            if guess_l[i] in chosen_one:
+                money_profit += (bet_l[i]* times[i])
+                money += (bet_l[i]* times[i]) 
+                roulette_profit += (bet_l[i]* times[i])
+                roulette_wins += 1
+                bet_l_t = bet_l[i] * times[i]
+
+                if guess_l[i] == "0" or guess_l[i] == "00":
+                    if guess_l[i+1] == "0" or guess_l[i+1] == "00":
+                        print("\nbet was ${}. split between {} and {}\n\nwon {}".format(bet_l[i], guess_l[i], guess_l[i+1], bet_l_t))
+                        time.sleep(1)
+                    else:
+                        print("\nbet was ${}. split between {} and {} {}\n\nwon {}".format(bet_l[i], guess_l[i], color[int(guess_l[i+1])], guess_l[i+1], bet_l_t))
+                        time.sleep(1)
+
+                else:
+                    if guess_l[i+1] == "0" or guess_l[i+1] == "00":
+                        print("\nbet was ${}. split between {} {} and {}\n\nwon {}".format(bet_l[i], color[int(guess_l[i])], guess_l[i], guess_l[i+1], bet_l_t))
+                        time.sleep(1)
+                    else:
+                        print("\nbet was ${}. split between {} {} and {} {}\n\nwon {}".format(bet_l[i], color[int(guess_l[i])], guess_l[i], color[int(guess_l[i+1])], guess_l[i+1], bet_l_t))
+                        time.sleep(1)
+                
+            else:
+                money_profit -= bet_l[i]
+                roulette_profit -= bet_l[i]
+                roulette_losses -= 1
+                
+                
+                if guess_l[i] == "0" or guess_l[i] == "00":
+                    if guess_l[i+1] == "0" or guess_l[i+1] == "00":
+                        print("\nbet was ${}. split between {} and {}\n\nlost {}".format(bet_l[i], guess_l[i], guess_l[i+1], bet_l[i]))
+                        time.sleep(1)
+                    else:
+                        print("\nbet was ${}. split between {} and {} {}\n\nlost {}".format(bet_l[i], guess_l[i], color[int(guess_l[i+1])], guess_l[i+1], bet_l[i]))
+                        time.sleep(1)
+
+                else:
+                    if guess_l[i+1] == "0" or guess_l[i+1] == "00":
+                        print("\nbet was ${}. split between {} {} and {}\n\nlost {}".format(bet_l[i], color[int(guess_l[i])], guess_l[i], guess_l[i+1], bet_l[i]))
+                        time.sleep(1)
+                    else:
+                        print("\nbet was ${}. split between {} {} and {} {}\n\nlost {}".format(bet_l[i], color[int(guess_l[i])], guess_l[i], color[int(guess_l[i+1])], guess_l[i+1], bet_l[i]))
+                        time.sleep(1)
+
+        else:
+            if guess_l[i] in chosen_one:
+                money_profit += (bet_l[i]* times[i])
+                money += (bet_l[i]* times[i]) 
+                roulette_profit += (bet_l[i]* times[i])
+                roulette_wins += 1
+                bet_l_t = bet_l[i] * times[i]
+                if guess_l[i] in number:
+                    if guess_l[i] == "0" or guess_l[i] == "00":
+                        print("\nbet was ${} on {}".format(bet_l[i], guess_l[i]))
+                        print("\nwon ${}".format(bet_l_t))
+                        time.sleep(1)
+
+                    else:
+                        print("\nbet was ${} on {} {}".format(bet_l[i], color[int(guess_l[i])], guess_l[i]))
+                        print("\nwon ${}".format(bet_l_t))
+                        time.sleep(1)
+                else:
+                    print("\nbet was ${} on {}".format(bet_l[i], guess_l[i]))
+                    print("\nwon ${}".format(bet_l_t))
+                    time.sleep(1)
+            else:
+                money_profit -= bet_l[i]
+                roulette_profit -= bet_l[i]
+                roulette_losses -= 1
+                
+                
+                if guess_l[i] in number:
+                    if guess_l[i] == "0" or guess_l[i] == "00":
+                        print("\nbet was ${} on {}".format(bet_l[i], guess_l[i]))
+                        print("\nlost ${}".format(bet_l[i]))
+                        time.sleep(1)
+
+                    else:
+                        print("\nbet was ${} on {} {}".format(bet_l[i], color[int(guess_l[i])], guess_l[i]))
+                        print("\nlost ${}".format(bet_l[i]))
+                        time.sleep(1)
+                else:
+                    print("\nbet was ${} on {}".format(bet_l[i], guess_l[i]))
+                    print("\nlost ${}".format(bet_l[i]))
+                    time.sleep(1)
+
+    if money_profit > 0:
+        print("\n profit/loss ${}".format(money_profit))
+    
+    if money_profit == 0:
+        print("\n profit/loss ${}, oh thats anticlimatic lul".format(money_profit))
     else:
-        bad_letter = True
-
-    if guess == num:
-        money -= int(bet)
-        roulette_profit -= int(bet)
-        roulette_wins += 1
-
-    else:
-        print()
-
-
-
+        money_profit = str(money_profit)
+        money_profit = money_profit.strip("-")
+        print("\n profit/loss -${}".format(money_profit))
 
 # Call your game of chance functions here
 
@@ -382,23 +738,7 @@ def choose():
             elif int(game) == 3:
                 print(war(input("War      Bet ")))
             elif int(game) == 4:
-                print("""A. ‘Straight Up’(one specific number) B. ‘Split’(one of two specific numbers)
-C. ‘Street’(one of three specific numbers) D. ‘Corner’(one of four specific numbers)
-E. ‘First Four’(one of numbers 0,1,2,3) F.‘Six Line’(one of six specific numbers)
-G. ‘Column’ (one of twelve specific numbers in a row) H. ‘Dozen’ (one of twelve specific numbers in a block)
-J. ‘Red or Black’ (one of eighteen specific numbers) K. ‘Odd or Even’ (one of eighteen specific numbers)
-L. ‘Low or High’ (one of eighteen specific numbers) M. ‘Split Columns’(one of 24 specific numbers in a row)
-N. ‘Split Dozens’(one of 24 specific numbers in a block)
- _____________________________________________________________
-| 0 |r3 |b6 |r9 |r12||b15|r18|r21|b24||r27|r30|b33|r36| row1  |
-| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
-|---|b2 |r5 |b8 |b11||r14|b17|b20|r23||b26|b29|r32|b35| row2  |
-| 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
-|   |r1 |b4 |r7 |b10||b13|r16|r19|b22||r25|b28|b31|r34| row3  |
- ---|---------------||---------------||---------------|-------
-    |    1st 12     ||    2nd 12     ||    3rd 12     |
-     -------------------------------------------------""")
-                print(roulette(input("Type bet amount. "), input("Type letter of the type of bet you'd like to make. ")))
+                print(roulette())
             elif int(game) == 5:
                 print("You are withdrawing with " + str(money) + ".")
 
@@ -532,7 +872,7 @@ N. ‘Split Dozens’ (one of 24 specific numbers in a block) 1 to 2
 | 0 |---|---|---|---||---|---|---|---||---|---|---|---|       |
 |   |r1 |b4 |r7 |b10||b13|r16|r19|b22||r25|b28|b31|r34| row3  |
  ---|---------------||---------------||---------------|-------
-    |    1st 12     ||    2nd 12     ||    3rd 12     |
+    |    1st  12    ||    2nd  12    ||    3rd  12    |
      -------------------------------------------------""")
                 elif int(rule) == 5:
                     choose()
@@ -624,6 +964,6 @@ N. ‘Split Dozens’ (one of 24 specific numbers in a block) 1 to 2
         if roulette_wins >= 1 or roulette_losses >= 1:
             print("roulette net gain: " + str(roulette_profit))
             print()
-choose()
-
+#choose()
+roulette()
 
